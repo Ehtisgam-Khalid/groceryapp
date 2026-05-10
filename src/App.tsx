@@ -10,6 +10,7 @@ import BottomNav from './components/BottomNav';
 import Home from './pages/Home';
 import Auth from './pages/Auth';
 import Profile from './pages/Profile';
+import Wishlist from './pages/Wishlist';
 import Cart from './pages/Cart';
 import PricingPlans from './pages/PricingPlans';
 import AdminLayout from './components/AdminLayout';
@@ -22,6 +23,7 @@ import Reports from './pages/admin/Reports';
 import { seedInitialData } from './lib/seeds';
 
 import { CartProvider } from './context/CartContext';
+import { WishlistProvider } from './context/WishlistContext';
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
@@ -89,8 +91,9 @@ export default function App() {
   return (
     <Router>
       <Toaster position="bottom-right" />
-      <CartProvider>
-        <div className="min-h-screen bg-white overflow-x-hidden">
+      <WishlistProvider>
+        <CartProvider>
+          <div className="min-h-screen bg-white overflow-x-hidden">
           <Routes>
             {/* Admin Routes */}
             <Route path="/admin/*" element={
@@ -117,6 +120,7 @@ export default function App() {
                     <Route path="/auth" element={<Auth />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/cart" element={<Cart />} />
+                    <Route path="/wishlist" element={<Wishlist />} /> 
                     <Route path="/membership" element={<PricingPlans />} />
                     <Route path="*" element={<Navigate to="/" />} />
                   </Routes>
@@ -127,6 +131,7 @@ export default function App() {
           </Routes>
         </div>
       </CartProvider>
-    </Router>
+    </WishlistProvider>
+  </Router>
   );
 }

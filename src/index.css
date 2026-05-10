@@ -6,54 +6,36 @@
   --font-serif: "Playfair Display", serif;
   --font-mono: "JetBrains Mono", monospace;
 
-  /* Soft, Modern Palette */
-  --color-brand-50: #f0fdfa;   /* Light Teal */
+  /* Premium Palette */
+  --color-brand-50: #f0fdfa;
   --color-brand-100: #ccfbf1;
   --color-brand-200: #99f6e4;
   --color-brand-300: #5eead4;
   --color-brand-400: #2dd4bf;
-  --color-brand-500: #14b8a6;   /* Primary Teal */
-  --color-brand-600: #0d9488;
-  --color-brand-700: #0f766e;
-  --color-brand-800: #115e59;
-  --color-brand-900: #134e4a;
-  --color-brand-950: #042f2e;
+  --color-brand-500: #10b981;   /* Emerald 500 */
+  --color-brand-600: #059669;
+  --color-brand-700: #047857;
+  --color-brand-800: #065f46;
+  --color-brand-900: #064e3b;
+  --color-brand-950: #022c22;
   
-  --color-soft-beige: #fdfaf5; /* Image reference color */
-  --color-soft-orange: #fff4e6;
-  --color-soft-teal: #e6f7f5;
-  
-  --color-slate-50: #f8fafc;
-  --color-slate-100: #f1f5f9;
-  --color-slate-200: #e2e8f0;
-  --color-slate-300: #cbd5e1;
-  --color-slate-400: #94a3b8;
-  --color-slate-500: #64748b;
-  --color-slate-600: #475569;
-  --color-slate-700: #334155;
-  --color-slate-800: #1e293b;
-  --color-slate-900: #0f172a;
+  --color-soft-beige: #FDFCFB;
+  --color-soft-orange: #FFF8F0;
+  --color-soft-teal: #F0F9FF;
 
-  --radius-4xl: 32px;
-  --radius-5xl: 48px;
-  --radius-6xl: 64px;
+  --radius-4xl: 2rem;
+  --radius-5xl: 3rem;
+  --radius-6xl: 4rem;
 }
 
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-800 font-sans antialiased;
+    @apply bg-[#FDFCFB] text-slate-900 font-sans antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
 
 @layer components {
-  .card-soft {
-    @apply bg-white rounded-[40px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-500 hover:shadow-[0_20px_50px_rgb(0,0,0,0.08)] hover:-translate-y-1;
-  }
-  
-  .btn-soft {
-    @apply bg-brand-500 text-white font-bold px-8 py-4 rounded-full transition-all shadow-lg shadow-brand-200 hover:bg-brand-600 hover:shadow-brand-300 active:scale-95 text-sm;
-  }
-
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
@@ -64,10 +46,10 @@
 }
 
 .animate-in {
-  animation: animate-in 0.5s ease-out;
+  animation: animate-in 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes animate-in {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }

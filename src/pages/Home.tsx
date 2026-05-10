@@ -32,107 +32,166 @@ export default function Home() {
     fetchData();
   }, []);
 
-  const addToWishlist = (p: Product) => {
-    toast.success(`${p.name} added to wishlist!`);
-  };
-
   const filteredProducts = selectedCategory === 'All' 
     ? products 
     : products.filter(p => p.category === selectedCategory);
 
   return (
-    <div className="pb-32 min-h-screen bg-soft-beige overflow-x-hidden">
-      {/* Search Header for Mobile */}
-      <div className="lg:hidden px-6 pt-6 pb-2">
-        <div className="flex items-center bg-white rounded-3xl px-5 py-3.5 shadow-sm border border-slate-100">
-          <Search size={18} className="text-slate-300" />
+    <div className="pb-32 min-h-screen bg-[#FDFCFB] overflow-x-hidden">
+      {/* Desktop Search / Header */}
+      <div className="hidden lg:flex items-center justify-between px-12 py-8">
+        <h1 className="text-3xl font-black tracking-tight text-slate-900 italic">Fresh<span className="text-emerald-500">Box</span></h1>
+        <div className="flex items-center bg-white rounded-2xl px-6 py-3 shadow-sm border border-slate-100 min-w-[500px]">
+          <Search size={20} className="text-slate-300" />
           <input 
             type="text" 
-            placeholder="Search for groceries and more..." 
-            className="bg-transparent border-none focus:ring-0 text-sm w-full ml-3 font-medium placeholder:text-slate-300 outline-none"
+            placeholder="Search premium groceries..." 
+            className="bg-transparent border-none focus:ring-0 text-sm w-full ml-4 font-medium placeholder:text-slate-200 outline-none"
           />
+        </div>
+        <div className="flex items-center gap-6 text-slate-400 font-bold text-xs uppercase tracking-widest">
+           <span className="text-slate-900 border-b-2 border-emerald-500 pb-1">Groceries</span>
+           <span className="hover:text-slate-900 transition-colors">Recipes</span>
+           <span className="hover:text-slate-900 transition-colors">Offers</span>
         </div>
       </div>
 
-      {/* Hero Section - App Style */}
-      <section className="px-6 pt-6">
+      {/* Modern Hero Section */}
+      <section className="px-6 lg:px-12 pt-4">
         <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="relative h-48 md:h-[320px] bg-soft-orange rounded-[40px] p-8 flex items-center overflow-hidden"
+          className="relative h-[240px] md:h-[500px] rounded-[3rem] overflow-hidden group shadow-2xl shadow-emerald-900/5"
         >
-          <div className="relative z-10 max-w-sm">
-            <h2 className="text-2xl md:text-5xl font-black text-slate-800 leading-[1.1] mb-6">
-              30% Off Your<br/>First Order
-            </h2>
-            <button className="bg-slate-900 text-white px-8 py-3 rounded-full text-xs font-bold hover:bg-slate-800 transition-all shadow-lg active:scale-95">
-              Order Now
-            </button>
+          {/* Layered Backgrounds */}
+          <div className="absolute inset-0 bg-slate-900">
+            <img 
+              src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1200" 
+              className="w-full h-full object-cover opacity-60 scale-105 group-hover:scale-100 transition-transform duration-[2000ms]"
+              referrerPolicy="no-referrer"
+            />
           </div>
-          <img 
-            src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=400" 
-            className="absolute right-0 top-0 h-full w-1/2 object-cover opacity-80 mix-blend-multiply md:mix-blend-normal"
-            referrerPolicy="no-referrer"
-          />
-          {/* Decorative dots */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-1.5">
-            <div className="w-6 h-1.5 bg-slate-900 rounded-full"></div>
-            <div className="w-1.5 h-1.5 bg-slate-300 rounded-full"></div>
-            <div className="w-1.5 h-1.5 bg-slate-300 rounded-full"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/60 to-transparent"></div>
+          
+          <div className="relative z-10 h-full flex flex-col justify-center px-8 md:px-20">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+              className="inline-flex items-center gap-2 bg-emerald-500/20 backdrop-blur-md border border-emerald-500/30 px-4 py-1.5 rounded-full mb-6 w-fit"
+            >
+              <Zap size={14} className="text-emerald-400 fill-emerald-400" />
+              <span className="text-[10px] font-black text-emerald-400 uppercase tracking-widest">Premium Selection</span>
+            </motion.div>
+
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="text-4xl md:text-8xl font-black text-white leading-[0.95] tracking-tighter mb-8 max-w-2xl"
+            >
+              Freshness<br/>
+              <span className="text-emerald-400">Simplified.</span>
+            </motion.h2>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="flex items-center gap-4"
+            >
+              <button className="bg-emerald-500 text-white px-10 py-5 rounded-[2rem] font-bold text-sm hover:bg-emerald-400 transition-all shadow-xl shadow-emerald-500/20 flex items-center gap-3 active:scale-95">
+                Explore Market <ArrowRight size={20} />
+              </button>
+              <div className="hidden md:flex flex-col ml-8">
+                 <span className="text-white/40 text-[10px] uppercase font-black tracking-widest mb-1">Stocked precisely</span>
+                 <span className="text-white font-bold">2 Hours Ago</span>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Decorative Elements */}
+          <div className="absolute bottom-10 right-10 hidden lg:flex items-center gap-4">
+             <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center text-white cursor-pointer hover:bg-white hover:text-slate-900 transition-all">
+                <ChevronRight className="rotate-180" />
+             </div>
+             <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center text-white cursor-pointer hover:bg-white hover:text-slate-900 transition-all">
+                <ChevronRight />
+             </div>
           </div>
         </motion.div>
       </section>
 
-      {/* Categories Grid/Carousel */}
-      <section className="mt-10 px-6">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-bold text-slate-900">Categories</h3>
-          <button className="text-xs font-bold text-slate-400">View All</button>
+      {/* Categories Grid - Elevated */}
+      <section className="mt-20 px-6 lg:px-12">
+        <div className="flex items-center justify-between mb-10">
+          <div>
+            <h3 className="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-3">
+              Market Sections <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+            </h3>
+            <p className="text-slate-400 text-sm font-medium mt-1">Organized precisely for your needs</p>
+          </div>
+          <button className="hidden md:flex items-center gap-2 text-xs font-black text-emerald-600 uppercase tracking-widest group">
+            All Categories <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+          </button>
         </div>
         
-        <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide -mx-2 px-2">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
           <motion.div 
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ y: -5 }}
             onClick={() => setSelectedCategory('All')}
-            className={`flex-shrink-0 flex items-center gap-3 px-6 py-3 rounded-2xl border transition-all cursor-pointer ${selectedCategory === 'All' ? 'bg-brand-500 border-brand-500 text-white shadow-lg shadow-brand-100' : 'bg-white border-slate-100 text-slate-600 shadow-sm'}`}
+            className={`group h-40 rounded-[2.5rem] border-2 p-6 flex flex-col items-center justify-center gap-4 cursor-pointer transition-all duration-500 ${selectedCategory === 'All' ? 'bg-emerald-500 border-emerald-500 text-white shadow-2xl shadow-emerald-100' : 'bg-white border-slate-50 text-slate-600 hover:border-emerald-100 hover:shadow-xl'}`}
           >
-            <span className="text-lg">📦</span>
-            <span className="text-xs font-bold">All</span>
+            <div className="text-4xl group-hover:scale-125 transition-transform duration-500">🧺</div>
+            <span className="font-bold text-xs uppercase tracking-widest">All</span>
           </motion.div>
           {categories.map((cat) => (
             <motion.div 
               key={cat.id}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ y: -5 }}
               onClick={() => setSelectedCategory(cat.name)}
-              className={`flex-shrink-0 flex items-center gap-3 px-6 py-3 rounded-2xl border transition-all cursor-pointer ${selectedCategory === cat.name ? 'bg-brand-500 border-brand-500 text-white shadow-lg shadow-brand-100' : 'bg-white border-slate-100 text-slate-600 shadow-sm'}`}
+              className={`group h-40 rounded-[2.5rem] border-2 p-6 flex flex-col items-center justify-center gap-4 cursor-pointer transition-all duration-500 ${selectedCategory === cat.name ? 'bg-emerald-500 border-emerald-500 text-white shadow-2xl shadow-emerald-100' : 'bg-white border-slate-50 text-slate-600 hover:border-emerald-100 hover:shadow-xl'}`}
             >
-              <span className="text-lg">{cat.icon || '🥬'}</span>
-              <span className="text-xs font-bold">{cat.name}</span>
+              <div className="text-4xl group-hover:scale-125 transition-transform duration-500">{cat.icon || '🥬'}</div>
+              <span className="font-bold text-xs uppercase tracking-widest">{cat.name}</span>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* Product List */}
-      <section className="mt-10 px-6">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-bold text-slate-900">Popular Items</h3>
-          <button className="text-xs font-bold text-slate-400">View All</button>
+      {/* Product List - Premium Layout */}
+      <section className="mt-24 px-6 lg:px-12">
+        <div className="flex items-center justify-between mb-12">
+          <div>
+            <h3 className="text-2xl font-black text-slate-900 tracking-tight">Today's Highlights</h3>
+            <p className="text-slate-400 text-sm font-medium mt-1">Hand-picked by our produce experts</p>
+          </div>
+          <div className="flex items-center gap-3 bg-emerald-50 px-5 py-2.5 rounded-2xl border border-emerald-100">
+            <TrendingUp size={16} className="text-emerald-600" />
+            <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">Live Updates</span>
+          </div>
         </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-6 md:gap-10">
           {loading ? (
-            Array(6).fill(0).map((_, i) => (
-              <div key={i} className="aspect-[4/5] bg-white rounded-[32px] animate-pulse"></div>
+            Array(10).fill(0).map((_, i) => (
+              <div key={i} className="aspect-[4/5] bg-slate-100 rounded-[3rem] animate-pulse"></div>
             ))
           ) : filteredProducts.map((prod) => (
             <ProductCard 
               key={prod.id} 
               product={prod} 
-              onAddToWishlist={addToWishlist} 
             />
           ))}
         </div>
+
+        {!loading && filteredProducts.length === 0 && (
+          <div className="text-center py-32 bg-slate-50 rounded-[4rem] border border-slate-100">
+            <div className="text-6xl mb-6 grayscale opacity-20">🛒</div>
+            <h4 className="text-xl font-bold text-slate-900">Restocking in Progress</h4>
+            <p className="text-slate-400 text-sm mt-2">Come back in 15 minutes for new stock!</p>
+          </div>
+        )}
       </section>
 
       {/* New Arrivals Section */}

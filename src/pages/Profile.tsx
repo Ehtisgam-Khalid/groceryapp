@@ -3,8 +3,9 @@ import { auth, db } from '../lib/firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { UserProfile, Order, OrderStatus } from '../types';
 import { onAuthStateChanged } from 'firebase/auth';
-import { User, Mail, MapPin, Phone, Package, Bell, Shield, LogOut, Clock, CheckCircle2 } from 'lucide-react';
+import { User, Mail, MapPin, Phone, Package, Bell, Shield, LogOut, Clock, CheckCircle2, Heart } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 
 export default function Profile() {
   const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -71,15 +72,22 @@ export default function Profile() {
 
             <nav className="space-y-1">
               {[
-                { icon: User, label: 'Account Info', active: true },
-                { icon: Clock, label: 'Order History', active: false },
-                { icon: Shield, label: 'Security', active: false },
-                { icon: Bell, label: 'Notifications', active: false },
+                { icon: User, label: 'Account Info', active: true, path: '#' },
+                { icon: Heart, label: 'My Wishlist', active: false, path: '/wishlist' },
+                { icon: Clock, label: 'Order History', active: false, path: '#' },
+                { icon: Shield, label: 'Security', active: false, path: '#' },
               ].map((item) => (
-                <button key={item.label} className={`w-full flex items-center gap-3 px-6 py-3 rounded-2xl text-sm font-bold transition-all ${item.active ? 'bg-brand-500 text-white shadow-lg shadow-brand-200' : 'text-gray-500 hover:bg-gray-50'}`}>
-                  <item.icon size={18} />
-                  {item.label}
-                </button>
+                item.path !== '#' ? (
+                  <Link key={item.label} to={item.path} className="w-full flex items-center gap-3 px-6 py-3 rounded-2xl text-sm font-bold text-gray-500 hover:bg-gray-50 transition-all">
+                    <item.icon size={18} />
+                    {item.label}
+                  </Link>
+                ) : (
+                  <button key={item.label} className={`w-full flex items-center gap-3 px-6 py-3 rounded-2xl text-sm font-bold transition-all ${item.active ? 'bg-brand-500 text-white shadow-lg shadow-brand-200' : 'text-gray-500 hover:bg-gray-50'}`}>
+                    <item.icon size={18} />
+                    {item.label}
+                  </button>
+                )
               ))}
               <button 
                 onClick={() => auth.signOut()}
