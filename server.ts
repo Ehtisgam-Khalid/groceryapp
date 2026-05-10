@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 
 async function startServer() {
   const app = express();
-  const PORT = 3000; // Hardcoded to 3000 for AI Studio, Render allows custom port config
+  const PORT = Number(process.env.PORT) || 3000;
 
   // Body parsing middleware
   app.use(express.json());
@@ -30,11 +30,17 @@ async function startServer() {
     // Production serving
     console.log("Starting server in production mode...");
     const distPath = path.join(__dirname, "dist");
+    
+    // Check if dist directory exists
     app.use(express.static(distPath));
     
     // Fallback to index.html for SPA routing
     app.get("*", (req, res) => {
-      res.sendFile(path.join(distPath, "index.html"));
+      res.sendFile(path.join(distPath, "index.html"), (err) => {
+        if (err) {
+          res.status(500).send("Build production files first by running 'npm run build'");
+        }
+      });
     });
   }
 
