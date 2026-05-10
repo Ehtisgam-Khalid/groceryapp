@@ -1,0 +1,138 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Application user profile and metadata",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "name": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "user", "vendor"] },
+        "loyaltyPoints": { "type": "number" },
+        "address": { "type": "string" },
+        "phone": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "role"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "Grocery item available for purchase",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "price": { "type": "number" },
+        "discountedPrice": { "type": "number" },
+        "category": { "type": "string" },
+        "stock": { "type": "number" },
+        "images": { "type": "array", "items": { "type": "string" } },
+        "vendorId": { "type": "string" },
+        "rating": { "type": "number" },
+        "reviewCount": { "type": "number" },
+        "isFeatured": { "type": "boolean" }
+      },
+      "required": ["name", "price", "category", "stock"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer purchase and delivery details",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "items": { "type": "array" },
+        "totalAmount": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "shipped", "delivered", "cancelled"] },
+        "paymentStatus": { "type": "string", "enum": ["paid", "unpaid"] },
+        "paymentMethod": { "type": "string" },
+        "trackingInfo": { "type": "object" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "items", "totalAmount", "status"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "Product category",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "icon": { "type": "string" }
+      },
+      "required": ["name"]
+    },
+    "Vendor": {
+      "title": "Vendor",
+      "description": "Third-party seller details",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "description": { "type": "string" },
+        "rating": { "type": "number" }
+      },
+      "required": ["name", "email"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "User feedback on a product",
+      "type": "object",
+      "properties": {
+        "productId": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "rating": { "type": "number" },
+        "comment": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["productId", "userId", "rating", "comment"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "System-to-user alerts",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "type": { "type": "string" },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "title", "message", "read"]
+    },
+    "Wishlist": {
+      "title": "Wishlist",
+      "description": "User's saved products",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "productIds": { "type": "array" }
+      },
+      "required": ["userId", "productIds"]
+    },
+    "PricingPlan": {
+      "title": "PricingPlan",
+      "description": "Subscription plans for users",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "price": { "type": "number" },
+        "features": { "type": "array" },
+        "description": { "type": "string" }
+      },
+      "required": ["name", "price"]
+    }
+  },
+  "firestore": {
+    "users": { "schema": "User", "description": "User profiles" },
+    "products": { "schema": "Product", "description": "Grocery products" },
+    "orders": { "schema": "Order", "description": "Customer orders" },
+    "categories": { "schema": "Category", "description": "Product categories" },
+    "vendors": { "schema": "Vendor", "description": "Third-party vendors" },
+    "reviews": { "schema": "Review", "description": "Product reviews" },
+    "notifications": { "schema": "Notification", "description": "User notifications" },
+    "wishlists": { "schema": "Wishlist", "description": "User wishlists" },
+    "pricingPlans": { "schema": "PricingPlan", "description": "Subscription plans" }
+  }
+}

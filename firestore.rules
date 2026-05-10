@@ -1,0 +1,110 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // --- Helpers ---
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'ehtisham@gmail.com' ||
+        request.auth.token.email == 'ehtishamarain567@gmail.com' ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin')
+      );
+    }
+
+    // Master Access for Admins
+    match /{document=**} {
+      allow read, write: if isAdmin();
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128;
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // --- Validation Blueprints ---
+    function isValidUser(data) {
+      return data.role in ['user', 'admin', 'vendor'];
+    }
+
+    function isValidProduct(data) {
+      return data.name is string && data.price is number && data.stock is number;
+    }
+
+    function isValidOrder(data) {
+      return data.userId == request.auth.uid && data.items is list;
+    }
+
+    function isValidReview(data) {
+      return data.userId == request.auth.uid && data.rating is number;
+    }
+
+    // --- Collections ---
+
+    match /users/{userId} {
+      allow get: if isOwner(userId) || isAdmin();
+      allow list: if isAdmin();
+      allow create: if isOwner(userId) && isValidUser(incoming());
+      allow update: if (isOwner(userId) || isAdmin()) && isValidUser(incoming());
+    }
+
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if isAdmin() && isValidId(productId) && isValidProduct(incoming());
+    }
+
+    match /categories/{catId} {
+      allow read: if true;
+      allow write: if isAdmin() && isValidId(catId);
+    }
+
+    match /orders/{orderId} {
+      allow get: if (isOwner(resource.data.userId) || isAdmin()) && isValidId(orderId);
+      allow list: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isSignedIn() && isValidId(orderId) && isValidOrder(incoming());
+      allow update: if (isAdmin() || (isOwner(existing().userId) && incoming().status == existing().status && incoming().diff(existing()).affectedKeys().hasOnly(['paymentStatus', 'paymentMethod']))) && isValidId(orderId);
+    }
+
+    match /vendors/{vendorId} {
+      allow read: if true;
+      allow write: if isAdmin() && isValidId(vendorId);
+    }
+
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if isSignedIn() && isValidId(reviewId) && isValidReview(incoming());
+      allow update, delete: if isOwner(existing().userId) && isValidId(reviewId) && (request.method == 'DELETE' || isValidReview(incoming()));
+    }
+
+    match /notifications/{noteId} {
+      allow get: if (isOwner(resource.data.userId) || isAdmin()) && isValidId(noteId);
+      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isAdmin() && isValidId(noteId);
+      allow update: if isOwner(existing().userId) && isValidId(noteId) && incoming().diff(existing()).affectedKeys().hasOnly(['read']);
+      allow delete: if isOwner(existing().userId) && isValidId(noteId);
+    }
+
+    match /wishlists/{userId} {
+      allow read, write: if isOwner(userId) && isValidId(userId);
+    }
+
+    match /pricingPlans/{planId} {
+      allow read: if true;
+      allow write: if isAdmin() && isValidId(planId);
+    }
+  }
+}

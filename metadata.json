@@ -1,0 +1,6 @@
+{
+  "name": "ShopEasy",
+  "description": "A modern grocery delivery platform with real-time order tracking, inventory management, and loyalty rewards.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["Firebase", "Real-time Tracking", "Admin Dashboard"]
+}
