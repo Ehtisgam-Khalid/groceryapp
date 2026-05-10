@@ -114,10 +114,10 @@ export default function Inventory() {
 
   return (
     <div className="space-y-10 animate-in">
-      <header className="flex flex-col xl:flex-row xl:items-end justify-between gap-6">
+      <header className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
         <div>
-          <h1 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter uppercase">Product Vault</h1>
-          <p className="text-slate-400 font-bold text-[10px] uppercase tracking-widest mt-1">Manage global inventory and stock levels</p>
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Product Catalog</h1>
+          <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Manage inventory and stock levels</p>
         </div>
         
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
@@ -125,7 +125,7 @@ export default function Inventory() {
             <Search size={18} className="text-slate-300" />
             <input 
               type="text" 
-              placeholder="Search catalog..." 
+              placeholder="Search products..." 
               className="bg-transparent border-none focus:ring-0 text-sm w-full outline-none font-bold placeholder:text-slate-200"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -135,9 +135,9 @@ export default function Inventory() {
           <div className="flex items-center gap-2">
             <button 
               onClick={() => setIsCategoryModalOpen(true)}
-              className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 md:px-6 py-3 bg-white border border-slate-100 rounded-2xl text-[9px] font-black text-slate-600 uppercase tracking-widest hover:bg-slate-50 transition-all shadow-sm"
+              className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3 bg-white border border-slate-100 rounded-2xl text-[10px] font-bold text-slate-600 uppercase tracking-widest hover:bg-slate-50 transition-all shadow-sm"
             >
-              <Tag size={16} className="text-slate-400" />
+              <Tag size={16} />
               Categories
             </button>
             
@@ -156,7 +156,7 @@ export default function Inventory() {
                 });
                 setIsModalOpen(true); 
               }}
-              className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 md:px-8 py-3 md:py-4 bg-slate-900 text-white rounded-2xl md:rounded-3xl text-[9px] font-black uppercase tracking-widest hover:bg-black transition-all shadow-xl shadow-slate-200"
+              className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-8 py-3 bg-slate-900 text-white rounded-2xl text-[10px] font-bold uppercase tracking-widest hover:bg-black transition-all shadow-xl shadow-slate-200"
             >
               <Plus size={18} />
               Publish
@@ -165,8 +165,8 @@ export default function Inventory() {
         </div>
       </header>
 
-      {/* Responsive Grid/Table container */}
-      <div className="bg-white rounded-[32px] md:rounded-[56px] border border-slate-100 shadow-xl shadow-slate-200/50 overflow-hidden">
+      {/* Grid container */}
+      <div className="bg-white rounded-[40px] border border-slate-100 shadow-sm overflow-hidden">
         {/* Card view for mobile */}
         <div className="md:hidden divide-y divide-slate-100">
           {loading && products.length === 0 ? (
@@ -181,18 +181,18 @@ export default function Inventory() {
                   <img src={prod.images[0]} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-black text-slate-900 truncate">{prod.name}</h3>
-                  <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest truncate">#{prod.id.slice(0, 8)}</p>
+                  <h3 className="font-bold text-slate-900 truncate">{prod.name}</h3>
+                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest truncate">#{prod.id.slice(0, 8)}</p>
                 </div>
               </div>
               <div className="flex items-center justify-between">
-                <div className="px-3 py-1 bg-slate-50 border border-slate-100 rounded-full text-[9px] font-black text-slate-500 uppercase tracking-widest">
+                <div className="px-3 py-1 bg-slate-50 border border-slate-100 rounded-full text-[9px] font-bold text-slate-500 uppercase tracking-widest">
                   {prod.category}
                 </div>
-                <div className="text-xl font-black text-slate-900 tracking-tighter">${prod.price.toFixed(2)}</div>
+                <div className="text-xl font-bold text-slate-900 tracking-tight">${prod.price.toFixed(2)}</div>
               </div>
               <div className="flex items-center justify-between">
-                <div className={`px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest border ${prod.stock > 10 ? 'bg-slate-50 text-slate-600 border-slate-100' : 'bg-red-50 text-red-600 border-red-100'}`}>
+                <div className={`px-4 py-2 rounded-xl text-[9px] font-bold uppercase tracking-widest border ${prod.stock > 10 ? 'bg-emerald-50 text-emerald-600 border-emerald-100' : 'bg-amber-50 text-amber-600 border-amber-100'}`}>
                   {prod.stock} In Stock
                 </div>
                 <div className="flex gap-2">
@@ -228,11 +228,11 @@ export default function Inventory() {
         <div className="hidden md:block overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50/50 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100">
-                <th className="px-10 py-6">Product Information</th>
-                <th className="px-10 py-6">Category Tag</th>
-                <th className="px-10 py-6">Retail Cost</th>
-                <th className="px-10 py-6">Stock Status</th>
+              <tr className="bg-slate-50/50 text-[10px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-100">
+                <th className="px-10 py-6 text-left">Product Information</th>
+                <th className="px-10 py-6 text-left">Category</th>
+                <th className="px-10 py-6 text-left">Price</th>
+                <th className="px-10 py-6 text-left">Status</th>
                 <th className="px-10 py-6 text-right">Actions</th>
               </tr>
             </thead>
@@ -252,26 +252,25 @@ export default function Inventory() {
                         <img src={prod.images[0]} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                       </div>
                       <div>
-                        <div className="text-base font-black text-slate-900 group-hover:text-brand-600 transition-colors underline decoration-brand-100 underline-offset-4 decoration-0 group-hover:decoration-2">{prod.name}</div>
-                        <div className="text-[10px] text-slate-400 font-black uppercase tracking-widest flex items-center gap-1.5 mt-1">
+                        <div className="text-base font-bold text-slate-900 group-hover:text-brand-500 transition-colors">{prod.name}</div>
+                        <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest flex items-center gap-1.5 mt-1">
                           <Package size={10} className="text-slate-300" /> #{prod.id.slice(0, 8)}
                         </div>
                       </div>
                     </div>
                   </td>
                   <td className="px-10 py-8">
-                    <span className="text-[9px] font-black text-brand-600 bg-brand-50 px-4 py-1.5 rounded-full uppercase tracking-widest border border-brand-100 shadow-sm">
+                    <span className="text-[9px] font-bold text-brand-500 bg-brand-50 px-4 py-1.5 rounded-full uppercase tracking-widest border border-brand-100 shadow-sm">
                       {prod.category}
                     </span>
                   </td>
                   <td className="px-10 py-8">
-                    <div className="text-lg font-black text-slate-900 tracking-tighter leading-none">${prod.price.toFixed(2)}</div>
-                    <div className="text-[9px] text-slate-400 font-bold uppercase tracking-widest mt-1">MSRP USD</div>
+                    <div className="text-lg font-bold text-slate-900 tracking-tight leading-none">${prod.price.toFixed(2)}</div>
                   </td>
                   <td className="px-10 py-8">
-                    <div className={`inline-flex items-center gap-2.5 px-4 py-2 rounded-2xl shadow-sm border ${prod.stock > 10 ? 'bg-brand-50 text-brand-600 border-brand-100' : 'bg-red-50 text-red-600 border-red-100'}`}>
+                    <div className={`inline-flex items-center gap-2.5 px-4 py-2 rounded-2xl shadow-sm border ${prod.stock > 10 ? 'bg-emerald-50 text-emerald-600 border-emerald-100' : 'bg-amber-50 text-amber-600 border-amber-100'}`}>
                       {prod.stock > 10 ? <Target size={14} /> : <Zap size={14} />}
-                      <span className="text-[10px] font-black uppercase tracking-widest">{prod.stock} In Vault</span>
+                      <span className="text-[10px] font-bold uppercase tracking-widest">{prod.stock} In Stock</span>
                     </div>
                   </td>
                   <td className="px-10 py-8 text-right">

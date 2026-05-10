@@ -14,20 +14,20 @@ const data = [
 ];
 
 const StatCard = ({ icon: Icon, label, value, trend, trendValue }: any) => (
-  <div className="bg-white p-6 md:p-8 rounded-[40px] md:rounded-[48px] border border-slate-100 shadow-sm transition-hover hover:shadow-2xl hover:shadow-slate-200/50 duration-500 group relative overflow-hidden">
+  <div className="bg-white p-6 md:p-8 rounded-[40px] md:rounded-[48px] border border-slate-100 shadow-sm transition-hover hover:shadow-2xl hover:shadow-brand-100/50 duration-500 group relative overflow-hidden">
     <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 translate-x-12 -translate-y-12 rounded-full group-hover:scale-150 transition-transform duration-700"></div>
     <div className="relative z-10">
       <div className="flex items-center justify-between mb-6 md:mb-8">
-        <div className={`p-3 md:p-4 rounded-2xl md:rounded-3xl bg-slate-100 text-slate-800 group-hover:bg-slate-900 group-hover:text-white transition-all duration-500 shadow-sm`}>
+        <div className={`p-3 md:p-4 rounded-2xl md:rounded-3xl bg-slate-100 text-slate-800 group-hover:bg-brand-500 group-hover:text-white transition-all duration-500 shadow-sm`}>
           <Icon size={20} />
         </div>
-        <div className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] font-black uppercase tracking-widest ${trend === 'up' ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-400'}`}>
+        <div className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] font-black uppercase tracking-widest ${trend === 'up' ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-600'}`}>
           {trend === 'up' ? <ArrowUpRight size={12} /> : <ArrowDownRight size={12} />}
           {trendValue}%
         </div>
       </div>
-      <div className="text-3xl md:text-4xl font-black text-slate-900 mb-1 tracking-tighter leading-none">{value}</div>
-      <div className="text-[9px] font-black text-slate-300 uppercase tracking-[0.3em]">{label}</div>
+      <div className="text-3xl md:text-4xl font-bold text-slate-900 mb-1 tracking-tight leading-none">{value}</div>
+      <div className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.2em]">{label}</div>
     </div>
   </div>
 );
@@ -37,13 +37,13 @@ export default function AdminDashboard() {
     <div className="space-y-8 md:space-y-12 animate-in pb-12">
       <header className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
-          <h1 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter uppercase">Executive Intelligence</h1>
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Executive Intelligence</h1>
           <p className="text-slate-400 font-bold text-[10px] uppercase tracking-widest mt-1">Global performance and real-time operations</p>
         </div>
         
         <div className="flex items-center gap-3 bg-white px-5 py-2.5 rounded-2xl border border-slate-100 shadow-sm">
           <Calendar size={16} className="text-slate-300" />
-          <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest leading-none">Global Log: May 2026</span>
+          <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest leading-none">Global Log: May 2026</span>
         </div>
       </header>
 
@@ -55,13 +55,13 @@ export default function AdminDashboard() {
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 md:gap-10">
-        <div className="bg-white p-6 md:p-10 rounded-[40px] md:rounded-[64px] border border-slate-100 shadow-xl shadow-slate-200/40">
+        <div className="bg-white p-6 md:p-10 rounded-[40px] md:rounded-[64px] border border-slate-100 shadow-xl shadow-brand-100/20">
           <div className="flex items-center justify-between mb-8 md:mb-12">
             <div>
-              <h3 className="text-lg md:text-xl font-black text-slate-900 uppercase tracking-tight">Financial Trajectory</h3>
-              <p className="text-[9px] text-slate-300 font-bold uppercase tracking-widest mt-1">Valuation in USD</p>
+              <h3 className="text-lg md:text-xl font-bold text-slate-900 tracking-tight">Financial Trajectory</h3>
+              <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest mt-1">Valuation in USD</p>
             </div>
-            <div className="flex items-center gap-2 bg-slate-900 px-3 py-1.5 rounded-xl text-[9px] font-black uppercase text-white shadow-lg shadow-black/10">
+            <div className="flex items-center gap-2 bg-brand-500 px-3 py-1.5 rounded-xl text-[9px] font-bold uppercase text-white shadow-lg shadow-brand-200">
                Live <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></div>
             </div>
           </div>
@@ -70,8 +70,8 @@ export default function AdminDashboard() {
               <AreaChart data={data}>
                 <defs>
                   <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#000000" stopOpacity={0.05}/>
-                    <stop offset="95%" stopColor="#000000" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="#14b8a6" stopOpacity={0.1}/>
+                    <stop offset="95%" stopColor="#14b8a6" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
@@ -81,27 +81,26 @@ export default function AdminDashboard() {
                   contentStyle={{ 
                     borderRadius: '20px', 
                     border: 'none', 
-                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.2)',
+                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.05)',
                     padding: '12px',
-                    backgroundColor: '#000',
-                    color: '#fff'
+                    backgroundColor: '#fff',
                   }}
-                  itemStyle={{ color: '#fff', fontSize: '10px', fontWeight: 'bold' }}
-                  labelStyle={{ fontSize: '11px', fontWeight: '900', color: '#fff', marginBottom: '4px' }}
+                  itemStyle={{ color: '#0f172a', fontSize: '10px', fontWeight: 'bold' }}
+                  labelStyle={{ fontSize: '11px', fontWeight: '900', color: '#0f172a', marginBottom: '4px' }}
                 />
-                <Area type="monotone" dataKey="sales" stroke="#000000" fillOpacity={1} fill="url(#colorSales)" strokeWidth={3} />
+                <Area type="monotone" dataKey="sales" stroke="#14b8a6" fillOpacity={1} fill="url(#colorSales)" strokeWidth={3} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        <div className="bg-white p-6 md:p-10 rounded-[40px] md:rounded-[64px] border border-slate-100 shadow-xl shadow-slate-200/40">
+        <div className="bg-white p-6 md:p-10 rounded-[40px] md:rounded-[64px] border border-slate-100 shadow-xl shadow-brand-100/20">
           <div className="flex items-center justify-between mb-8 md:mb-12">
             <div>
-              <h3 className="text-lg md:text-xl font-black text-slate-900 uppercase tracking-tight">Demand Density</h3>
-              <p className="text-[9px] text-slate-300 font-bold uppercase tracking-widest mt-1">Transaction units</p>
+              <h3 className="text-lg md:text-xl font-bold text-slate-900 tracking-tight">Demand Density</h3>
+              <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest mt-1">Transaction units</p>
             </div>
-            <div className="p-3 bg-slate-100 rounded-2xl text-slate-900">
+            <div className="p-3 bg-slate-50 border border-slate-100 rounded-2xl text-slate-800">
               <TrendingUp size={20} />
             </div>
           </div>
@@ -116,12 +115,12 @@ export default function AdminDashboard() {
                   contentStyle={{ 
                     borderRadius: '16px', 
                     border: 'none', 
-                    boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.1)',
+                    boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.05)',
                     backgroundColor: '#fff',
                     padding: '10px'
                   }}
                 />
-                <Bar dataKey="orders" fill="#000000" radius={[8, 8, 0, 0]} barSize={20} />
+                <Bar dataKey="orders" fill="#14b8a6" radius={[8, 8, 0, 0]} barSize={20} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -134,17 +133,17 @@ export default function AdminDashboard() {
           <div className="max-w-xl text-center lg:text-left">
              <div className="inline-flex items-center gap-3 bg-white/5 border border-white/10 px-5 py-2 rounded-full mb-6 md:mb-8">
                <Rocket size={14} className="text-white" />
-               <span className="text-[9px] font-black uppercase tracking-[0.3em] text-white">System Integrity: Optimal</span>
+               <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-white">System Integrity: Optimal</span>
              </div>
-             <h3 className="text-3xl md:text-5xl font-black mb-4 md:mb-6 leading-[0.9] tracking-tighter uppercase italic">Compile System Logs</h3>
+             <h3 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 leading-[0.9] tracking-tight">Export Insights</h3>
              <p className="text-slate-400 font-bold text-xs md:text-sm leading-relaxed mb-8 md:mb-10">Generate a comprehensive deep-dive of the logistics funnel and inventory velocity for the current epoch.</p>
-             <button className="w-full sm:w-auto px-10 py-5 bg-white text-slate-900 rounded-[28px] text-[10px] font-black uppercase tracking-[0.4em] hover:bg-slate-100 transition-all shadow-2xl active:scale-95">Execute Export</button>
+             <button className="w-full sm:w-auto px-10 py-5 bg-white text-slate-900 rounded-[28px] text-[10px] font-bold uppercase tracking-widest hover:bg-slate-100 transition-all shadow-2xl active:scale-95">Execute Export</button>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-2 gap-4 w-full lg:w-auto">
             {[1, 2, 3, 4].map(i => (
               <div key={i} className="aspect-square w-full sm:w-32 bg-white/5 rounded-[32px] md:rounded-[40px] border border-white/10 flex flex-col items-center justify-center gap-2 group/btn hover:bg-white/10 transition-all cursor-pointer">
                 <div className="text-xl md:text-2xl transition-all group-hover/btn:scale-125">⚡</div>
-                <div className="text-[8px] font-black text-slate-500 uppercase tracking-widest leading-none">NODE {i}</div>
+                <div className="text-[8px] font-bold text-slate-500 uppercase tracking-widest leading-none">NODE {i}</div>
               </div>
             ))}
           </div>

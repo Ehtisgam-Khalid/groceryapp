@@ -6,6 +6,7 @@ import { auth, db } from './lib/firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { UserProfile, UserRole } from './types';
 import Navbar from './components/Navbar';
+import BottomNav from './components/BottomNav';
 import Home from './pages/Home';
 import Auth from './pages/Auth';
 import Profile from './pages/Profile';
@@ -89,7 +90,7 @@ export default function App() {
     <Router>
       <Toaster position="bottom-right" />
       <CartProvider>
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-white overflow-x-hidden">
           <Routes>
             {/* Admin Routes */}
             <Route path="/admin/*" element={
@@ -110,7 +111,7 @@ export default function App() {
             <Route path="/*" element={
               <>
                 <Navbar />
-                <div className="pt-16">
+                <div className="pt-20">
                   <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/auth" element={<Auth />} />
@@ -120,6 +121,7 @@ export default function App() {
                     <Route path="*" element={<Navigate to="/" />} />
                   </Routes>
                 </div>
+                <BottomNav />
               </>
             } />
           </Routes>

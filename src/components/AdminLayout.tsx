@@ -74,70 +74,69 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   ];
 
   return (
-    <div className="flex h-screen bg-slate-50 overflow-hidden text-slate-900 font-sans selection:bg-brand-100 selection:text-brand-900">
+    <div className="flex h-screen bg-slate-50 overflow-hidden text-slate-800 font-sans selection:bg-brand-50 selection:text-brand-700">
       {/* Mobile Sidebar Overlay */}
       {isSidebarOpen && (
         <div 
-          className="fixed inset-0 bg-black/50 z-[60] lg:hidden backdrop-blur-sm transition-opacity"
+          className="fixed inset-0 bg-slate-900/40 z-[60] lg:hidden backdrop-blur-sm transition-opacity"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar */}
       <aside className={`
-        fixed inset-y-0 left-0 z-[70] w-72 bg-slate-900 flex flex-col shrink-0 transition-transform duration-500 ease-in-out lg:relative lg:translate-x-0 overflow-hidden
+        fixed inset-y-0 left-0 z-[70] w-72 bg-white flex flex-col shrink-0 transition-transform duration-500 ease-in-out lg:relative lg:translate-x-0 overflow-hidden
         ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-       shadow-2xl`}>
-        <div className="absolute top-0 left-0 w-full h-96 bg-brand-500/10 rounded-full blur-[80px] -translate-y-1/2"></div>
+       shadow-[20px_0_50px_rgba(0,0,0,0.03)] border-r border-slate-100`}>
         
-        <div className="h-28 px-8 flex items-center border-b border-white/5 relative z-10 justify-between">
+        <div className="h-28 px-8 flex items-center border-b border-slate-50 relative z-10 justify-between">
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-slate-900 font-black shadow-2xl shadow-white/10 group-hover:rotate-12 transition-transform duration-500">SE</div>
+            <div className="w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center text-white font-black shadow-lg shadow-black/10 group-hover:rotate-12 transition-transform duration-500">SE</div>
             <div>
-              <span className="text-2xl font-black tracking-tighter text-white block leading-none">ShopEasy<span className="text-white/30">.</span></span>
-              <span className="text-[9px] font-black text-slate-400 uppercase tracking-[0.3em] mt-1 block">Enterprise Node</span>
+              <span className="text-xl font-bold tracking-tight text-slate-900 block leading-none">ShopEasy Admin</span>
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1 block">Control Center</span>
             </div>
           </Link>
           <button 
             onClick={() => setIsSidebarOpen(false)}
-            className="lg:hidden p-2 text-white/50 hover:text-white"
+            className="lg:hidden p-2 text-slate-400 hover:text-slate-900"
           >
             <X size={24} />
           </button>
         </div>
 
-        <nav className="flex-grow p-8 space-y-2 relative z-10 overflow-y-auto">
-          <div className="text-[9px] font-black text-white/20 uppercase tracking-[0.4em] px-4 mb-6">Management Architecture</div>
+        <nav className="flex-grow p-8 space-y-2 relative z-10 overflow-y-auto scrollbar-hide">
+          <div className="text-[10px] font-bold text-slate-300 uppercase tracking-widest px-4 mb-6">Management</div>
           {menuItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
-              className={`flex items-center gap-4 px-5 py-4 rounded-3xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${
+              className={`flex items-center gap-4 px-5 py-4 rounded-3xl text-xs font-bold transition-all duration-300 ${
                 location.pathname === item.path 
-                  ? 'bg-white text-slate-900 shadow-2xl shadow-white/20 scale-[1.02]' 
-                  : 'text-slate-400 hover:text-white hover:bg-white/5'
+                  ? 'bg-brand-500 text-white shadow-xl shadow-brand-100 scale-[1.02]' 
+                  : 'text-slate-400 hover:text-slate-700 hover:bg-slate-50'
               }`}
             >
-              <item.icon size={18} className={location.pathname === item.path ? 'text-slate-900' : 'text-slate-600'} />
+              <item.icon size={18} />
               {item.label}
             </Link>
           ))}
         </nav>
 
-        <div className="p-8 border-t border-white/5 relative z-10 bg-black/20">
+        <div className="p-8 border-t border-slate-50 relative z-10 bg-slate-50/50">
           <button 
             onClick={() => auth.signOut()}
-            className="flex items-center gap-4 px-6 py-4 w-full rounded-2xl text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-white hover:bg-white/5 hover:border-white/10 border border-transparent transition-all"
+            className="flex items-center gap-4 px-6 py-4 w-full rounded-2xl text-[10px] font-bold uppercase tracking-widest text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all"
           >
             <LogOut size={16} />
-            Terminate Session
+            Sign Out
           </button>
         </div>
       </aside>
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col overflow-hidden relative w-full">
-        <header className="h-20 lg:h-28 bg-white border-b border-slate-100 flex items-center justify-between px-6 lg:px-12 shrink-0">
+        <header className="h-20 lg:h-24 bg-white/80 backdrop-blur-xl border-b border-slate-100 flex items-center justify-between px-6 lg:px-12 shrink-0">
           <div className="flex items-center gap-3">
              <button 
                onClick={() => setIsSidebarOpen(true)}
@@ -145,57 +144,32 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
              >
                <Menu size={24} />
              </button>
-             <div className="hidden sm:flex w-10 h-10 bg-slate-900 rounded-2xl items-center justify-center text-white">
-                <ShieldCheck size={20} />
-             </div>
-             <h2 className="font-black text-lg lg:text-xl text-slate-900 tracking-tighter uppercase leading-none">
-               {menuItems.find(i => i.path === location.pathname)?.label || 'Core System'}
+             <h2 className="font-bold text-lg text-slate-900 tracking-tight">
+               {menuItems.find(i => i.path === location.pathname)?.label || 'System'}
              </h2>
           </div>
 
-          <div className="flex items-center gap-3 lg:gap-10">
-            <div className="hidden md:flex items-center gap-4 bg-slate-50 p-2 rounded-2xl border border-slate-100">
-               <button className="p-3 text-slate-400 hover:text-slate-900 hover:bg-white rounded-xl transition-all relative">
-                 <Bell size={18} />
-                 <div className="absolute top-2 right-2 w-2 h-2 bg-slate-900 rounded-full border-2 border-slate-50"></div>
-               </button>
-               <button className="p-3 text-slate-400 hover:text-slate-900 hover:bg-white rounded-xl transition-all">
-                 <Settings size={18} />
-               </button>
-            </div>
+          <div className="flex items-center gap-4">
+             <button className="p-2.5 text-slate-400 hover:text-slate-900 hover:bg-slate-50 rounded-xl transition-all relative">
+               <Bell size={20} />
+               <div className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></div>
+             </button>
 
-            <div className="flex items-center gap-2 lg:gap-4 pl-4 lg:pl-10 lg:border-l border-slate-100 group cursor-pointer">
-              <div className="text-right hidden sm:block">
-                <p className="text-[10px] lg:text-xs font-black text-slate-900 uppercase tracking-tight">Executive Admin</p>
-                <p className="text-[8px] lg:text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] leading-none mt-1">Status: Active</p>
+            <div className="flex items-center gap-3 pl-4 border-l border-slate-100">
+              <div className="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400 font-bold">
+                 AD
               </div>
-              <div className="relative scale-75 lg:scale-100 origin-right">
-                <div className="w-14 h-14 bg-slate-50 rounded-3xl border border-slate-200 flex items-center justify-center text-slate-300 shadow-sm group-hover:scale-105 transition-all">
-                   <Users size={24} />
-                </div>
-                <div className="absolute -bottom-1 -right-1 p-1 bg-white rounded-full">
-                   <div className="w-4 h-4 bg-slate-900 rounded-xl border-4 border-white"></div>
-                </div>
+              <div className="hidden sm:block">
+                <p className="text-xs font-bold text-slate-900 leading-none">Admin User</p>
+                <p className="text-[10px] font-medium text-slate-400 leading-none mt-1">Super Admin</p>
               </div>
-              <ChevronDown size={16} className="text-slate-300 group-hover:translate-y-0.5 transition-transform hidden lg:block" />
             </div>
           </div>
         </header>
         
-        <div className="flex-1 overflow-y-auto p-6 lg:p-12 bg-slate-50/50 custom-scrollbar text-slate-900">
+        <div className="flex-1 overflow-y-auto p-6 lg:p-10 bg-soft-beige/50 text-slate-800 scrollbar-hide">
           {children}
         </div>
-
-        <footer className="h-10 lg:h-12 bg-white border-t border-slate-100 px-6 lg:px-12 flex items-center justify-between text-[8px] lg:text-[10px] font-black text-slate-300 shrink-0 uppercase tracking-[0.3em]">
-          <div className="flex gap-4 lg:gap-10">
-             <span className="flex items-center gap-2">Protocol: <span className="text-slate-600">Secure AES-256</span></span>
-             <span className="hidden md:flex items-center gap-2">Core Health: <span className="text-slate-900">Optimal (12ms)</span></span>
-          </div>
-          <div className="flex items-center gap-4">
-             <div className="w-2 h-2 bg-slate-900 rounded-full animate-pulse"></div>
-             <span>System Ready</span>
-          </div>
-        </footer>
       </main>
     </div>
   );
